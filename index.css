@@ -1,0 +1,100 @@
+/* Font + Color Setup */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f3f3;
+    color: #333;
+}
+
+h1,
+h2 {
+    font-weight: 700;
+}
+
+.highlight {
+    color: #4a90e2;
+}
+
+/* Hero */
+.hero-section {
+    background: linear-gradient(135deg, #f9f9f9, #e6f0ff);
+    border-bottom: 4px dashed #7ab2ff;
+    animation: slide-in-top 1s ease-out;
+}
+
+/* Paper-style Card */
+.paper-card {
+    background-color: #fffef9;
+    border: 1px dashed #ccc;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.paper-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Paper-style Navbar */
+.paper-nav {
+    border-bottom: 2px dashed #ddd;
+    background-color: #ffffff;
+}
+
+/* Footer */
+.footer {
+    background-color: #f1f1f1;
+    border-top: 1px dashed #ccc;
+}
+
+/* Animations */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-top {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-in-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 1.2s ease-out;
+}
+
+.animate-slide-in-top {
+    animation: slide-in-top 1s ease-out;
+}
+
+.animate-slide-in-left {
+    animation: slide-in-left 1s ease-out;
+}
+
+/* Button glow on hover */
+.btn-primary:hover,
+.btn-success:hover {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    transition: box-shadow 0.3s ease;
+}
