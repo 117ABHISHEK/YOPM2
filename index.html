@@ -1,84 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LearnLog</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css" />
-
-    <!-- Bootstrap JS, jQuery, Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LearnLog - Track Your Learning</title>
+  <link rel="stylesheet" href="index.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded-bottom paper-nav animate-fade-in">
-        <a class="navbar-brand font-weight-bold" href="#">📘 LearnLog</a>
-        <div class="ml-auto">
-            <a class="btn btn-outline-primary mr-2" href="#">Login</a>
-            <a class="btn btn-primary" href="#">Sign Up</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero-section text-center py-5 animate-slide-in-top">
-        <div class="container">
-            <h1 class="display-4">
-                Welcome to <span class="highlight">LearnLog</span>
-            </h1>
-            <p class="lead">
-                Your personal learning journal — now more vibrant than ever!
-            </p>
-            <a href="#" class="btn btn-lg btn-success shadow mt-3">Start Logging Now</a>
-        </div>
+  <div class="landing">
+    <header>
+      <div class="logo">📚 LearnLog</div>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+      <div class="search-box">
+        <input type="text" placeholder="Search"/>
+        <button>🔍</button>
+      </div>
     </header>
 
-    <!-- Features Section -->
-    <section class="features py-5 bg-light animate-slide-in-left">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="paper-card p-4 shadow-sm rounded">
-                        <h2 class="text-primary">🛠️ Features</h2>
-                        <ul class="list-unstyled mt-3">
-                            <li>✅ Track your learning progress</li>
-                            <li>📁 Organize notes and resources</li>
-                            <li>🔁 Review and reflect daily</li>
-                            <li>🔔 Smart reminders (coming soon!)</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="paper-card p-4 shadow-sm rounded">
-                        <h2 class="text-info">🎯 Why LearnLog?</h2>
-                        <p>
-                            Designed with curious learners in mind, LearnLog helps you stay
-                            consistent, structured, and inspired.
-                        </p>
-                        <p>
-                            <strong>Craft your learning legacy — one log at a time.</strong>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="hero">
+      <h1 class="title">Your Personal <span>Learning Tracker</span></h1>
+      <p class="subtitle">Plan, track and reflect on your learning journey like never before. Let LearnLog guide your growth with ease.</p>
+      <button class="cta">Get Started</button>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer text-center py-4 animate-fade-in">
-        <div class="container">
-            <p class="text-muted">
-                &copy; 2025 LearnLog • Designed for the creators, thinkers, and
-                dreamers ✨
-            </p>
-        </div>
-    </footer>
+    <div class="bg-shapes">
+      <div class="blob blob1"></div>
+      <div class="blob blob2"></div>
+      <div class="blob blob3"></div>
+    </div>
+  </div>
 </body>
-
 </html>
