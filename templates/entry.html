@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>New Entry - LearnLog</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style/form.css" />
+  </head>
+
+  <body>
+    <div class="card p-4" style="max-width: 600px; width: 100%">
+      <h3 class="mb-3 text-center text-dark">New Learning Entry</h3>
+      <form>
+        <div class="mb-3">
+          <label for="date" class="form-label text-dark">Date</label>
+          <input type="date" id="date" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="title" class="form-label text-dark">Title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control"
+            placeholder="Entry title"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label text-dark">Content</label>
+          <textarea
+            id="content"
+            class="form-control"
+            rows="4"
+            placeholder="Describe what you learned today..."
+            required
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="tags" class="form-label text-dark">Tags</label>
+          <input
+            type="text"
+            id="tags"
+            class="form-control"
+            placeholder="e.g., JavaScript, CSS, Algorithms"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="project" class="form-label text-dark">Project</label>
+          <input
+            type="text"
+            id="project"
+            class="form-control"
+            placeholder="Associated project (optional)"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="reflection" class="form-label text-dark"
+            >Reflection</label
+          >
+          <textarea
+            id="reflection"
+            class="form-control"
+            rows="3"
+            placeholder="How did this help you grow?"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="resources" class="form-label text-dark">Resources</label>
+          <textarea
+            id="resources"
+            class="form-control"
+            rows="2"
+            placeholder="Links, books, videos..."
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="time" class="form-label text-dark"
+            >Time Spent (hours)</label
+          >
+          <input
+            type="number"
+            id="time"
+            class="form-control"
+            placeholder="e.g., 2.5"
+          />
+        </div>
+        <div class="text-center">
+          <button type="submit" class="auth-btn entry-btn">Save Entry</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

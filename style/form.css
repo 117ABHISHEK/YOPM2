@@ -1,0 +1,98 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7928ca, #ff0080);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+.btn-primary {
+  background: #0066ff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #0052cc;
+}
+
+h3 {
+  font-weight: 700;
+}
+textarea {
+  resize: vertical;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+.auth-btn {
+  border: none;
+  padding: 12px 28px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.login-btn {
+  background: linear-gradient(135deg, #2196f3, #00bcd4);
+  background-size: 200%;
+}
+
+.login-btn:hover {
+  animation: gradientFlow 4s linear infinite;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(270deg, #00bcd4, #2196f3, #03a9f4, #00bcd4);
+  background-size: 400% 400%;
+}
+.register-btn {
+  background: linear-gradient(135deg, #4caf50, #8bc34a);
+  background-size: 200%;
+}
+
+.register-btn:hover {
+  animation: gradientFlow 4s linear infinite;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(270deg, #8bc34a, #4caf50, #66bb6a, #8bc34a);
+  background-size: 400% 400%;
+}
+
+.entry-btn {
+  background: linear-gradient(135deg, #e91e63, #9c27b0);
+  background-size: 200%;
+}
+
+.entry-btn:hover {
+  animation: gradientFlow 4s linear infinite;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(270deg, #f06292, #ab47bc, #ec407a, #9c27b0);
+  background-size: 400% 400%;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
