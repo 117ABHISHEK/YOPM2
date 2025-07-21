@@ -13,7 +13,7 @@
   <body>
     <div class="card p-4" style="max-width: 400px; width: 100%">
       <h3 class="mb-3 text-center text-dark">Login</h3>
-      <form>
+      <form id="login-form">
         <div class="mb-3">
           <label for="login-id" class="form-label text-dark"
             >Username or Email</label
@@ -41,10 +41,35 @@
         <div class="text-center">
           <button type="submit" class="auth-btn login-btn">Login</button>
         </div>
+        <p class="mt-3 text-center text-dark" id="login-error" style="color:red;"></p>
         <p class="mt-3 text-center text-dark">
           Don't have an account? <a href="register.html">Register</a>
         </p>
       </form>
     </div>
+    <script>
+      document.getElementById('login-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const username = document.getElementById('login-id').value;
+        const password = document.getElementById('login-password').value;
+        const errorElem = document.getElementById('login-error');
+        errorElem.textContent = '';
+        try {
+          const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+          const data = await res.json();
+          if (data.success) {
+            window.location.href = 'entry.html';
+          } else {
+            errorElem.textContent = data.error || 'Login failed.';
+          }
+        } catch (err) {
+          errorElem.textContent = 'Network error.';
+        }
+      });
+    </script>
   </body>
 </html>

@@ -22,7 +22,7 @@
           <a href="#">Contact</a>
         </nav>
         <div class="auth-box">
-          <button class="auth-btn">Login / Register</button>
+          <button class="auth-btn" id="login-register-btn">Login / Register</button>
         </div>
       </header>
 
@@ -32,7 +32,7 @@
           Plan, track and reflect on your learning journey like never before.
           Let LearnLog guide your growth with ease.
         </p>
-        <button class="cta">Get Started</button>
+        <button class="cta" id="get-started-btn">Get Started</button>
       </section>
 
       <div class="bg-shapes">
@@ -41,5 +41,13 @@
         <div class="blob blob3"></div>
       </div>
     </div>
+    <script>
+      document.getElementById('login-register-btn').onclick = function() {
+        window.location.href = 'login.html';
+      };
+      document.getElementById('get-started-btn').onclick = function() {
+        window.location.href = 'login.html';
+      };
+    </script>
   </body>
 </html>
