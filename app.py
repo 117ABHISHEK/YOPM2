@@ -104,10 +104,9 @@ def dashboard():
         return redirect(url_for('login'))
 
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM learning_entries WHERE user_id = %s ORDER BY date DESC", [session['uid']])
+    cur.execute("SELECT * FROM learning_entries")
     entries = cur.fetchall()
-    cur.close()
-
+    print(entries) 
     return render_template('dashboard.html', entries=entries, username=session['username'])
 
 def validate_entry_form(form):
