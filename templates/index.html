@@ -16,13 +16,20 @@ endblock %} {% block head_extra %}
       <a href="#">Contact</a>
     </nav>
     <div class="auth-box">
-      <button
+      <!---<button
         class="auth-btn"
         id="login-register-btn"
         onclick="window.location.href='{{ url_for('login') }}';"
       >
         Login / Register
-      </button>
+      </button>--->
+      <a
+        href="{{ url_for('login') }}"
+        class="auth-btn"
+        id="login-register-btn"
+        style="text-decoration: none"
+        >Login / Register</a
+      >
     </div>
   </header>
 
@@ -32,13 +39,21 @@ endblock %} {% block head_extra %}
       Plan, track and reflect on your learning journey like never before. Let
       LearnLog guide your growth with ease.
     </p>
-    <button
+    <!--<button
       class="cta"
       id="get-started-btn"
       onclick="window.location.href='{{ url_for('register') }}';"
     >
       Get Started
-    </button>
+    </button>-->
+    <a
+      href="{{ url_for('register') }}"
+      class="cta"
+      id="get-started-btn"
+      style="text-decoration: none"
+    >
+      Get Started
+    </a>
   </section>
 
   <div class="bg-shapes">
