@@ -4,54 +4,112 @@
   box-sizing: border-box;
 }
 
-body,
-html {
-  height: 100%;
+body {
   font-family: "Poppins", sans-serif;
-  background: #f1f2f6;
-  overflow: hidden;
-}
-
-.landing {
-  position: relative;
-  height: 100vh;
-  color: #fff;
+  min-height: 100vh;
+  padding: 40px;
   background: linear-gradient(135deg, #e73895, #8f3cf7, #2c2bff);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px 40px;
-  overflow: hidden;
+  color: #fff;
 }
 
-/* Header */
 header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 2;
-  position: relative;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
+}
+
+header span {
+  font-weight: 400;
+}
+
+header .btn {
+  font-size: 0.9rem;
+}
+
+h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.card {
+  background: #ffffff;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.table thead th {
+  background: #343a40;
+  color: #fff;
+  border: none;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.badge {
+  background: #6c757d;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.btn-primary {
+  background-color: #343a40;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #495057;
+}
+
+.btn-warning {
+  font-size: 0.8rem;
+}
+
+.btn-danger {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header div:last-child {
+    margin-top: 10px;
+  }
+
+  .d-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .d-flex a {
+    margin-top: 10px;
+  }
+}
+.btn-outline-light {
+  background: transparent;
+  border: 1px solid #fff;
   color: #fff;
 }
 
-nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: #ffea00;
-}
-
-.prof {
-  height: 40px;
-  width: 40px;
+.btn-outline-light:hover {
+  background: #fff;
+  color: #343a40;
 }

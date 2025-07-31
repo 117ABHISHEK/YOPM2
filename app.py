@@ -171,7 +171,22 @@ def entry():
 
     return render_template('entry.html', entry=None)
 
+@app.route('/view_entry/<int:id>')
+def view_entry(id):
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
 
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM learning_entries WHERE id = %s AND user_id = %s", (id, session['user_id']))
+    entry = cur.fetchone()
+
+    if not entry:
+        flash('Entry not found.')
+        return redirect(url_for('dashboard'))
+
+
+    return render_template('view_entry.html', entry=entry)
+ 
 # --- Update Entry ---
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
@@ -219,7 +234,7 @@ def update(id):
     entry = cur.fetchone()
     cur.close()
 
-    if not entry: # This check is now more for the GET request
+    if not entry: 
         flash('Entry not found or you do not have permission to edit it.', 'danger')
         return redirect(url_for('dashboard'))
 

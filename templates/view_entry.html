@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}View Entry - LearnLog{% endblock %}
+{% block content %}
+<header class="d-flex justify-content-between align-items-center mb-4">
+  <div class="logo h3">📚 LearnLog</div>
+  <div>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary"
+      >← Back to Dashboard</a
+    >
+  </div>
+</header>
+
+<div class="card">
+  <div class="card-header bg-primary text-white">
+    <h2 class="mb-0">{{ entry.title }}</h2>
+  </div>
+  <div class="card-body">
+    <p><strong>Date:</strong> {{ entry.date.strftime('%Y-%m-%d') }}</p>
+    <p>
+      <strong>Tags:</strong>
+      {% if entry.tags %}
+      <span class="badge bg-secondary">{{ entry.tags }}</span>
+      {% else %} None {% endif %}
+    </p>
+    <hr />
+    <h5>Content</h5>
+    <p>{{ entry.content or "No content provided." }}</p>
+    <h5>Project</h5>
+    <p>{{ entry.project or "N/A" }}</p>
+    <h5>Reflection</h5>
+    <p>{{ entry.reflection or "N/A" }}</p>
+    <h5>Resources</h5>
+    <p>{{ entry.resources or "N/A" }}</p>
+    <h5>Time Spent</h5>
+    <p>{{ entry.time_spent }} hours</p>
+
+    <div class="mt-4">
+      <a
+        href="{{ url_for('update', id=entry['id']) }}"
+        class="btn btn-warning me-2"
+        >✏️ Edit</a
+      >
+      <a
+        href="{{ url_for('delete', id=entry['id']) }}"
+        class="btn btn-danger"
+        onclick="return confirm('Are you sure you want to delete this entry?');"
+      >
+        🗑️ Delete
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
