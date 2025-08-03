@@ -1,7 +1,12 @@
-{% extends "base.html" %} {% block title %}{{ 'Edit' if entry else 'New' }}
-Entry - LearnLog{% endblock %} {% block head_extra %}
+{% extends "base.html" %}
+
+{% block title %}{{ 'Edit' if entry else 'New' }} Entry - LearnLog{% endblock %}
+
+{% block head_extra %}
 <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <div class="card p-4 mx-auto" style="max-width: 600px; width: 100%">
   <h3 class="mb-3 text-center text-dark">
     {{ 'Edit' if entry else 'New' }} Learning Entry
