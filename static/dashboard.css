@@ -103,13 +103,3 @@ h1 {
     margin-top: 10px;
   }
 }
-.btn-outline-light {
-  background: transparent;
-  border: 1px solid #fff;
-  color: #fff;
-}
-
-.btn-outline-light:hover {
-  background: #fff;
-  color: #343a40;
-}
