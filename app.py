@@ -104,7 +104,7 @@ def dashboard():
         return redirect(url_for('login'))
 
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM learning_entries")
+    cur.execute("SELECT * FROM learning_entries where user_id = %s ORDER BY date DESC", (session['uid'],))
     entries = cur.fetchall()
     print(entries) 
     return render_template('dashboard.html', entries=entries, username=session['username'])
