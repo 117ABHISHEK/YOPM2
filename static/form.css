@@ -34,12 +34,20 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
 .auth-btn {
   border: none;
   padding: 12px 28px;
   color: #fff;
   font-weight: 600;
   font-size: 15px;
+}
+
+/* button style */
+.auth-btn,
+.login-btn,
+.register-btn,
+.entry-btn {
   border-radius: 25px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -47,6 +55,7 @@ a:hover {
   position: relative;
   overflow: hidden;
 }
+
 .login-btn {
   background: linear-gradient(135deg, #2196f3, #00bcd4);
   background-size: 200%;
@@ -94,5 +103,33 @@ a:hover {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+.login-btn:hover,
+.register-btn:hover,
+.entry-btn:hover {
+  animation: gradientFlow 4s linear infinite;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.form-container {
+  width: 100%;
+}
+
+.form-container-sm {
+  max-width: 550px;
+}
+
+.form-container-md {
+  max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  body {
+    align-items: flex-start;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 }

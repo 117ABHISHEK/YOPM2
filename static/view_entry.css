@@ -1,0 +1,83 @@
+body {
+  background: linear-gradient(135deg, #7928ca, #ff0080);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.view-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.view-header {
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.view-header .logo {
+  font-weight: 700;
+  color: #333;
+}
+
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #2196f3, #00bcd4);
+  border-bottom: none;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.card-header h2 {
+  font-weight: 600;
+}
+
+.detail-item {
+  margin-bottom: 1rem;
+}
+
+.detail-item h5 {
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.25rem;
+  border-left: 4px solid #00bcd4;
+  padding-left: 0.75rem;
+}
+
+.detail-item p,
+.detail-item .tags-container {
+  margin-left: calc(0.75rem + 4px);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-item:last-child p {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tag {
+  background-color: #6c757d;
+  color: white;
+  padding: 0.3em 0.6em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  margin-right: 0.5em;
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+
+.action-buttons .btn {
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}

@@ -40,11 +40,8 @@ block head_extra %}
             >
           </td>
           <td>
-            <a
-              href="{{ url_for('view_entry', id=entry['id']) }}"
-              class="btn btn-sm btn-info"
-              >View</a
-            >
+            <a href="{{ url_for('view_entry', id=entry['id']) }}" ...>View</a>
+
             <a
               href="{{ url_for('update', id=entry['id']) }}"
               class="btn btn-sm btn-warning"

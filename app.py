@@ -177,15 +177,15 @@ def view_entry(id):
         return redirect(url_for('login'))
 
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM learning_entries WHERE id = %s AND user_id = %s", (id, session['user_id']))
+    cur.execute("SELECT * FROM learning_entries WHERE id = %s AND user_id = %s", (id, session['uid']))
     entry = cur.fetchone()
+    cur.close()
 
     if not entry:
         flash('Entry not found.')
         return redirect(url_for('dashboard'))
-
-
-    return render_template('view_entry.html', entry=entry)
+    else:
+        return render_template('view_entry.html', entry=entry)
  
 # --- Update Entry ---
 @app.route('/update/<int:id>', methods=['GET', 'POST'])

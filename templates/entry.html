@@ -1,13 +1,8 @@
-{% extends "base.html" %}
-
-{% block title %}{{ 'Edit' if entry else 'New' }} Entry - LearnLog{% endblock %}
-
-{% block head_extra %}
+{% extends "base.html" %} {% block title %}{{ 'Edit' if entry else 'New' }}
+Entry - LearnLog{% endblock %} {% block head_extra %}
 <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
-{% endblock %}
-
-{% block content %}
-<div class="card p-4 mx-auto" style="max-width: 600px; width: 100%">
+{% endblock %} {% block content %}
+<div class="card p-4 mx-auto form-container form-container-md">
   <h3 class="mb-3 text-center text-dark">
     {{ 'Edit' if entry else 'New' }} Learning Entry
   </h3>
@@ -113,12 +108,12 @@
         name="time"
         value="{{ entry.time_spent if entry and entry.time_spent is not none else '' }}"
         class="form-control"
-        placeholder="e.g., 60 for 60 minutes"
+        placeholder="e.g., 1.5 for 1.5 hours"
       />
     </div>
 
     <div class="text-center">
-      <button type="submit" class="btn btn-primary w-100">Save Entry</button>
+      <button type="submit" class="auth-btn entry-btn w-100">Save Entry</button>
     </div>
   </form>
 </div>
