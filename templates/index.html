@@ -1,57 +1,38 @@
-{% extends "base.html" %} {% block title %}LearnLog - Track Your Learning{%
-endblock %} {% block head_extra %}
+{% extends "base.html" %}
+
+{% block title %}
+LearnLog - Track Your Learning
+{% endblock %}
+
+{% block head_extra %}
 <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-  rel="stylesheet"
-/>
-{% endblock %} {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
 <div class="landing">
   <header>
     <div class="logo">📚 LearnLog</div>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Features</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </nav>
     <div class="auth-box">
-      <!---<button
-        class="auth-btn"
-        id="login-register-btn"
-        onclick="window.location.href='{{ url_for('login') }}';"
-      >
+      <a href="{{ url_for('login') }}" class="auth-btn" id="login-register-btn" style="text-decoration: none">
         Login / Register
-      </button>--->
-      <a
-        href="{{ url_for('login') }}"
-        class="auth-btn"
-        id="login-register-btn"
-        style="text-decoration: none"
-        >Login / Register</a
-      >
+      </a>
     </div>
   </header>
 
-  <section class="hero">
+  <section class="hero" id="home">
     <h1 class="title">Your Personal <span>Learning Tracker</span></h1>
     <p class="subtitle">
       Plan, track and reflect on your learning journey like never before. Let
       LearnLog guide your growth with ease.
     </p>
-    <!--<button
-      class="cta"
-      id="get-started-btn"
-      onclick="window.location.href='{{ url_for('register') }}';"
-    >
-      Get Started
-    </button>-->
-    <a
-      href="{{ url_for('register') }}"
-      class="cta"
-      id="get-started-btn"
-      style="text-decoration: none"
-    >
+    <a href="{{ url_for('register') }}" class="cta" id="get-started-btn" style="text-decoration: none">
       Get Started
     </a>
   </section>
@@ -61,7 +42,40 @@ endblock %} {% block head_extra %}
     <div class="blob blob2"></div>
     <div class="blob blob3"></div>
   </div>
+  <div class="sections">
+    <!-- 🌟 Features Section -->
+    <section id="features" class="section features">
+      <h2>Features</h2>
+      <ul>
+        <li>📌 Track your daily and weekly learning goals</li>
+        <li>📈 Better understanding and analytics</li>
+        <li>🧠 Reflect on learning sessions</li>
+        <li>🔔 Reminders and motivational nudges</li>
+      </ul>
+    </section>
+
+    <!-- 📖 About Section -->
+    <section id="about" class="section about">
+      <h2>About LearnLog</h2>
+      <p>
+        LearnLog is your personal companion in your educational journey. Whether you're preparing for exams, learning
+        new tech skills, or growing personally, LearnLog helps you stay organized, consistent, and motivated.
+      </p>
+    </section>
+
+    <!-- 📬 Contact Section -->
+    <section id="contact" class="section contact">
+      <h2>Contact Us</h2>
+      <p>If you have any questions or feedback, feel free to reach out:</p>
+      <ul>
+        <li>Email: support@learnlog.com</li>
+        <li>Instagram: @learnlogapp</li>
+      </ul>
+    </section>
+  </div>
 </div>
-{% endblock %} {% block scripts %}
+{% endblock %}
+
+{% block scripts %}
 <script src="{{ url_for('static', filename='index.js') }}"></script>
 {% endblock %}
