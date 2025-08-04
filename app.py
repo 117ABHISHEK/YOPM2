@@ -184,8 +184,7 @@ def view_entry(id):
     if not entry:
         flash('Entry not found.')
         return redirect(url_for('dashboard'))
-    else:
-        return render_template('view_entry.html', entry=entry)
+    return render_template('view_entry.html', entry=entry)
  
 # --- Update Entry ---
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
