@@ -176,15 +176,22 @@ def view_entry(id):
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM learning_entries WHERE id = %s AND user_id = %s", (id, session['uid']))
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  
+    cur.execute(
+        "SELECT * FROM learning_entries WHERE id = %s AND user_id = %s",
+        (id, session['user_id'])  
+    )
     entry = cur.fetchone()
     cur.close()
 
     if not entry:
         flash('Entry not found.')
         return redirect(url_for('dashboard'))
+
+    print(entry) 
+
     return render_template('view_entry.html', entry=entry)
+
 # --- Update Entry ---
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
