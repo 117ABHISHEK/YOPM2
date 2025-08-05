@@ -173,13 +173,13 @@ def entry():
 
 @app.route('/view_entry/<int:id>')
 def view_entry(id):
-    if 'user_id' not in session:
+    if 'uid' not in session:
         return redirect(url_for('login'))
 
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  
     cur.execute(
         "SELECT * FROM learning_entries WHERE id = %s AND user_id = %s",
-        (id, session['user_id'])  
+        (id, session['uid'])  
     )
     entry = cur.fetchone()
     cur.close()
