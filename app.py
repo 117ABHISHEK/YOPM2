@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+import pymysql
+from pymysql.cursors import DictCursor
+
 
 
 app = Flask(__name__)
@@ -171,12 +174,14 @@ def entry():
 
     return render_template('entry.html', entry=None)
 
+from MySQLdb.cursors import DictCursor
+
 @app.route('/view_entry/<int:id>')
 def view_entry(id):
     if 'uid' not in session:
         return redirect(url_for('login'))
 
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  
+    cur = mysql.connection.cursor(DictCursor)
     cur.execute(
         "SELECT * FROM learning_entries WHERE id = %s AND user_id = %s",
         (id, session['uid'])  
