@@ -2,7 +2,7 @@
 block head_extra %}
 <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
 {% endblock %} {% block content %}
-<div class="card p-4 mx-auto form-container form-container-sm">
+<div class="card p-4 mx-auto form-container form-container-md" style="width: auto; height: auto;">
   <h3 class="mb-3 text-center text-dark">Login</h3>
   {% include '_flashes.html' %}
   <form id="login-form" method="POST" action="{{ url_for('login') }}">

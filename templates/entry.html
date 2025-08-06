@@ -1,23 +1,33 @@
-{% extends "base.html" %} {% block title %}{{ 'Edit' if entry else 'New' }}
-Entry - LearnLog{% endblock %} {% block head_extra %}
-<link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
-{% endblock %} {% block content %}
-<div class="card p-4 mx-auto form-container form-container-md">
-  <h3 class="mb-3 text-center text-dark">
-    {{ 'Edit' if entry else 'New' }} Learning Entry
-  </h3>
+{% extends "base.html" %}
+
+{% block title %}
+  {{ 'Edit' if entry else 'New' }} Entry - LearnLog
+{% endblock %}
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+{% endblock %}
+
+{% block content %}
   {% include '_flashes.html' %}
+
   <form
     method="POST"
     action="{{ url_for('update', id=entry.id) if entry else url_for('entry') }}"
+    style="width: auto; height: auto;" 
   >
+  <div class="card p-4 mx-auto form-container form-container-md">
+  <h3 class="mb-3 text-center text-dark">
+    {{ 'Edit' if entry else 'New' }} Learning Entry
+  </h3>
+
     <div class="mb-3">
       <label for="date" class="form-label text-dark">Date</label>
       <input
         type="date"
         id="date"
         name="date"
-        value="{{ entry.date if entry and entry.date else '' }}"
+        value="{{ entry.date.strftime('%Y-%m-%d') if entry and entry.date else '' }}"
         class="form-control"
         required
       />
@@ -38,16 +48,15 @@ Entry - LearnLog{% endblock %} {% block head_extra %}
 
     <div class="mb-3">
       <label for="content" class="form-label text-dark">Content</label>
-      <textarea
+      <input type="text"
         id="content"
         name="content"
         class="form-control"
         rows="4"
         placeholder="Describe what you learned today..."
+        value="{{ entry.content if entry else '' }}"
         required
-      >
-{{ entry.content if entry else '' }}</textarea
-      >
+      />
     </div>
 
     <div class="mb-3">
@@ -76,28 +85,26 @@ Entry - LearnLog{% endblock %} {% block head_extra %}
 
     <div class="mb-3">
       <label for="reflection" class="form-label text-dark">Reflection</label>
-      <textarea
+      <input type="text"
         id="reflection"
         name="reflection"
         class="form-control"
         rows="3"
         placeholder="How did this help you grow?"
-      >
-{{ entry.reflection if entry else '' }}</textarea
-      >
+        value="{{ entry.reflection if entry else '' }}"
+      />
     </div>
 
     <div class="mb-3">
       <label for="resources" class="form-label text-dark">Resources</label>
-      <textarea
+      <input type="text"
         id="resources"
         name="resources"
         class="form-control"
         rows="2"
         placeholder="Links, books, videos..."
-      >
-{{ entry.resources if entry else '' }}</textarea
-      >
+        value="{{ entry.resources if entry else '' }}"
+      />
     </div>
 
     <div class="mb-3">
@@ -105,7 +112,7 @@ Entry - LearnLog{% endblock %} {% block head_extra %}
       <input
         type="number"
         id="time"
-        name="time"
+        name="time_spent"
         value="{{ entry.time_spent if entry and entry.time_spent is not none else '' }}"
         class="form-control"
         placeholder="e.g., 1.5 for 1.5 hours"
