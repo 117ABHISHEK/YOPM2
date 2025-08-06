@@ -5,21 +5,22 @@
 {% endblock %}
 
 {% block head_extra %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
 {% endblock %}
 
 {% block content %}
-<div class="card p-4 mx-auto form-container form-container-md">
-  <h3 class="mb-3 text-center text-dark">
-    {{ 'Edit' if entry else 'New' }} Learning Entry
-  </h3>
-
   {% include '_flashes.html' %}
 
   <form
     method="POST"
     action="{{ url_for('update', id=entry.id) if entry else url_for('entry') }}"
+    style="width: auto; height: auto;" 
   >
+  <div class="card p-4 mx-auto form-container form-container-md">
+  <h3 class="mb-3 text-center text-dark">
+    {{ 'Edit' if entry else 'New' }} Learning Entry
+  </h3>
+
     <div class="mb-3">
       <label for="date" class="form-label text-dark">Date</label>
       <input
@@ -53,8 +54,9 @@
         class="form-control"
         rows="4"
         placeholder="Describe what you learned today..."
+        value="{{ entry.content if entry else '' }}"
         required
-      />{{ entry.content if entry else '' }}
+      />
     </div>
 
     <div class="mb-3">
@@ -89,7 +91,8 @@
         class="form-control"
         rows="3"
         placeholder="How did this help you grow?"
-      />{{ entry.reflection if entry else '' }}
+        value="{{ entry.reflection if entry else '' }}"
+      />
     </div>
 
     <div class="mb-3">
@@ -100,7 +103,8 @@
         class="form-control"
         rows="2"
         placeholder="Links, books, videos..."
-      />{{ entry.resources if entry else '' }}
+        value="{{ entry.resources if entry else '' }}"
+      />
     </div>
 
     <div class="mb-3">
