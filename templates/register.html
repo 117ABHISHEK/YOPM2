@@ -9,8 +9,9 @@ Register - LearnLog
 {% endblock %}
 
 {% block content %}
-
-<form id="register-form" method="POST" action="{{ url_for('register') }}" class="form-container-md">
+{% include '_flashes.html' %}
+<form id="register-form" method="POST" action="{{ url_for('register') }}" class="form-container-md" 
+style="width: auto; height: auto;">
   <h3 class="mb-3 text-center text-dark">Register</h3>
   <div class="mb-3">
     <label for="username" class="form-label text-dark">Username</label>
