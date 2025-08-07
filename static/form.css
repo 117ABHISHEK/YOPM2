@@ -124,7 +124,7 @@ a:hover {
 
 .form-container-md {
   width: 650px !important;
-  height: 100vh;
+  height: auto;
   margin: 10px;
 }
 
