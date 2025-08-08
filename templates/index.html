@@ -1,15 +1,11 @@
-{% extends "base.html" %}
-
-{% block title %}
-LearnLog - Track Your Learning
-{% endblock %}
-
-{% block head_extra %}
+{% extends "base.html" %} {% block title %} LearnLog - Track Your Learning {%
+endblock %} {% block head_extra %}
 <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-{% endblock %}
-
-{% block content %}
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+  rel="stylesheet"
+/>
+{% endblock %} {% block content %}
 <div class="landing">
   <header>
     <div class="logo">📚 LearnLog</div>
@@ -20,7 +16,12 @@ LearnLog - Track Your Learning
       <a href="#contact">Contact</a>
     </nav>
     <div class="auth-box">
-      <a href="{{ url_for('login') }}" class="auth-btn" id="login-register-btn" style="text-decoration: none">
+      <a
+        href="{{ url_for('login') }}"
+        class="auth-btn"
+        id="login-register-btn"
+        style="text-decoration: none"
+      >
         Login / Register
       </a>
     </div>
@@ -32,7 +33,12 @@ LearnLog - Track Your Learning
       Plan, track and reflect on your learning journey like never before. Let
       LearnLog guide your growth with ease.
     </p>
-    <a href="{{ url_for('register') }}" class="cta" id="get-started-btn" style="text-decoration: none">
+    <a
+      href="{{ url_for('register') }}"
+      class="cta"
+      id="get-started-btn"
+      style="text-decoration: none"
+    >
       Get Started
     </a>
   </section>
@@ -58,8 +64,10 @@ LearnLog - Track Your Learning
     <section id="about" class="section about">
       <h2>About LearnLog</h2>
       <p>
-        LearnLog is your personal companion in your educational journey. Whether you're preparing for exams, learning
-        new tech skills, or growing personally, LearnLog helps you stay organized, consistent, and motivated.
+        LearnLog is your personal companion in your educational journey. Whether
+        you're preparing for exams, learning new tech skills, or growing
+        personally, LearnLog helps you stay organized, consistent, and
+        motivated.
       </p>
     </section>
 
@@ -74,8 +82,6 @@ LearnLog - Track Your Learning
     </section>
   </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script src="{{ url_for('static', filename='index.js') }}"></script>
 {% endblock %}

@@ -1,6 +1,9 @@
 {% extends "base.html" %} {% block title %}Dashboard - LearnLog{% endblock %} {%
 block head_extra %}
-<link rel="stylesheet" href="{{url_for('static',filename='dashboard.css')}}" />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='dashboard.css') }}"
+/>
 {% endblock %} {% block content %}
 <header class="d-flex justify-content-between align-items-center mb-4">
   <div class="logo">📚 LearnLog</div>
@@ -9,8 +12,6 @@ block head_extra %}
     <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
   </div>
 </header>
-
-{% include '_flashes.html' %}
 
 <div class="d-flex justify-content-between align-items-center">
   <h1>Your Learning Entries</h1>
@@ -35,18 +36,32 @@ block head_extra %}
           <td>{{ entry.date.strftime('%Y-%m-%d') }}</td>
           <td>{{ entry.title }}</td>
           <td>
-            <span class="badge bg-secondary"
-              >{{ entry.tags if entry.tags else 'None' }}</span
-            >
+            {% if entry.tags %} {% for tag in entry.tags.split(',') if
+            tag.strip() %}
+            <span class="badge bg-secondary me-1">{{ tag.strip() }}</span>
+            {% endfor %} {% else %}
+            <span class="badge bg-light text-dark">None</span>
+            {% endif %}
           </td>
           <td>
-            <a href="{{ url_for('view_entry', id=entry.id) }}" class="btn btn-sm btn-info">View</a>
-
-            <a href="{{ url_for('update', id=entry.id) }}" class="btn btn-sm btn-warning">Edit</a>
-
-            <a href="{{ url_for('delete', id=entry.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this entry?');">
-              Delete</a
+            <a
+              href="{{ url_for('view_entry', id=entry['id']) }}"
+              class="btn btn-sm btn-info"
+              >View</a
             >
+            <a
+              href="{{ url_for('update', id=entry['id']) }}"
+              class="btn btn-sm btn-warning"
+              >Edit</a
+            >
+            <a
+              href="{{ url_for('delete', id=entry['id']) }}"
+              class="btn btn-danger"
+              data-url="{{ url_for('delete', id=entry['id']) }}"
+              onclick="confirmDelete(event, this.dataset.url)"
+            >
+              Delete
+            </a>
           </td>
         </tr>
         {% endfor %}
@@ -60,4 +75,29 @@ block head_extra %}
     {% endif %}
   </div>
 </div>
-{% endblock %}
+
+{% if total_pages > 1 %}
+<nav aria-label="Page navigation" class="mt-4">
+  <ul class="pagination justify-content-center">
+    <li class="page-item {% if page <= 1 %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('dashboard', page=page-1) }}"
+        >Previous</a
+      >
+    </li>
+
+    {% for page_num in range(1, total_pages + 1) %}
+    <li class="page-item {% if page_num == page %}active{% endif %}">
+      <a class="page-link" href="{{ url_for('dashboard', page=page_num) }}"
+        >{{ page_num }}</a
+      >
+    </li>
+    {% endfor %}
+
+    <li class="page-item {% if page >= total_pages %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('dashboard', page=page+1) }}"
+        >Next</a
+      >
+    </li>
+  </ul>
+</nav>
+{% endif %} {% endblock %}

@@ -9,8 +9,6 @@
 {% endblock %}
 
 {% block content %}
-  {% include '_flashes.html' %}
-
   <form
     method="POST"
     action="{{ url_for('update', id=entry.id) if entry else url_for('entry') }}"

@@ -2,10 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-import pymysql
-from pymysql.cursors import DictCursor
-
-
+import math
 
 app = Flask(__name__)
 
@@ -29,49 +26,47 @@ def index():
 def register():
     if 'username' in session:
         return redirect(url_for('dashboard'))
+    
     if request.method == 'POST':
         username = request.form.get('username', '').strip()
         email = request.form.get('email', '').strip()
         password = request.form.get('password', '')
         confirm_password = request.form.get('confirm_password', '')
-        errors = []
 
         if password != confirm_password:
-            errors.append(("Passwords do not match!", "danger"))
-
-        if not errors:
-            cur = mysql.connection.cursor()
-            cur.execute("SELECT * FROM users WHERE username = %s OR email = %s", (username, email))
-            user = cur.fetchone()
-            if user:
-                if user['username'] == username:
-                    errors.append(('Username already exists!', "danger"))
-                if user['email'] == email:
-                    errors.append(('Email address already registered!', "danger"))
-            cur.close()
-
-        if errors:
-            for error, category in errors:
-                flash(error, category)
+            flash("Passwords do not match!", 'danger')
             return render_template('register.html', form_data=request.form)
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM users WHERE username = %s OR email = %s", (username, email))
+        user = cur.fetchone()
+        if user:
+            if user['username'] == username:
+                flash("Username already exists!", 'danger')
+            elif user['email'] == email:
+                flash("Email already registered!", 'danger')
+            cur.close()
+            return render_template('register.html', form_data=request.form)
+        cur.close()
 
         hashed_password = generate_password_hash(password)
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s)", (username, email, hashed_password))
+        cur.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s)", 
+                    (username, email, hashed_password))
         mysql.connection.commit()
         cur.close()
 
-        flash('Registration successful! Please login.', 'success')
+        flash("Registration successful! Please login.", 'success')
         return redirect(url_for('login'))
 
     return render_template('register.html', form_data=None)
-
 
 # --- Login ---
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'username' in session:
         return redirect(url_for('dashboard'))
+    
     if request.method == 'POST':
         username = request.form.get('username', '').strip()
         password = request.form.get('password', '')
@@ -84,10 +79,10 @@ def login():
         if user and check_password_hash(user['password'], password):
             session['username'] = user['username']
             session['uid'] = user['id']
-            flash('Login successful!', 'success')
+            flash("Login successful!", 'success')
             return redirect(url_for('dashboard'))
         else:
-            flash('Invalid credentials!', 'danger')
+            flash("Invalid credentials!", 'danger')
             return redirect(url_for('login'))
 
     return render_template('login.html')
@@ -96,24 +91,36 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    flash('Logged out successfully!', 'info')
+    flash("Logged out successfully!", 'info')
     return redirect(url_for('index'))
 
 # --- Dashboard ---
 @app.route('/dashboard')
 def dashboard():
     if 'username' not in session:
-        flash('Please login first.', 'warning')
+        flash("Please login first.", 'warning')
         return redirect(url_for('login'))
 
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
+
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM learning_entries where user_id = %s ORDER BY date DESC", (session['uid'],))
+    cur.execute("SELECT COUNT(id) FROM learning_entries WHERE user_id = %s", (session['uid'],))
+    total_entries = cur.fetchone()['COUNT(id)']
+    total_pages = math.ceil(total_entries / per_page) if total_entries > 0 else 1
+
+    offset = (page - 1) * per_page
+    cur.execute(
+        "SELECT * FROM learning_entries WHERE user_id = %s ORDER BY date DESC LIMIT %s OFFSET %s",
+        (session['uid'], per_page, offset)
+    )
     entries = cur.fetchall()
-    print(entries) 
-    return render_template('dashboard.html', entries=entries, username=session['username'])
+    cur.close()
+
+    return render_template('dashboard.html', entries=entries, username=session['username'], 
+                           page=page, total_pages=total_pages)
 
 def validate_entry_form(form):
-    """Helper function to validate the learning entry form."""
     errors = []
     date_str = form.get('date', '').strip()
     title = form.get('title', '').strip()
@@ -121,16 +128,19 @@ def validate_entry_form(form):
     time_spent = form.get('time', '').strip()
 
     if not date_str or not title or not content:
-        errors.append(('Date, title, and content are required fields.', 'danger'))
+        errors.append(("Date, title, and content are required.", "danger"))
 
     if date_str:
         try:
             datetime.strptime(date_str, '%Y-%m-%d')
         except ValueError:
-            errors.append(('Invalid date format. Please use YYYY-MM-DD.', 'danger'))
+            errors.append(("Invalid date format. Use YYYY-MM-DD.", "danger"))
 
-    if time_spent and not time_spent.isdigit():
-        errors.append(('Time spent must be a number (e.g., 60 for 60 minutes).', 'danger'))
+    if time_spent:
+        try:
+            float(time_spent)
+        except ValueError:
+            errors.append(("Time spent must be a number.", "danger"))
 
     return errors
 
@@ -138,14 +148,14 @@ def validate_entry_form(form):
 @app.route('/entry', methods=['GET', 'POST'])
 def entry():
     if 'username' not in session:
-        flash('Please login first.', 'warning')
+        flash("Please login first.", 'warning')
         return redirect(url_for('login'))
 
     if request.method == 'POST':
         errors = validate_entry_form(request.form)
         if errors:
-            for error, category in errors:
-                flash(error, category)
+            for error_msg, category in errors:
+                flash(error_msg, category)
             return render_template('entry.html', entry=request.form)
 
         date = request.form.get('date', '').strip()
@@ -156,44 +166,38 @@ def entry():
         reflection = request.form.get('reflection', '').strip()
         resources = request.form.get('resources', '').strip()
         time_spent_str = request.form.get('time', '').strip()
-        time_spent = int(time_spent_str) if time_spent_str.isdigit() else None
+        time_spent = float(time_spent_str) if time_spent_str else None
 
         cur = mysql.connection.cursor()
         cur.execute("""
             INSERT INTO learning_entries 
             (date, title, content, tags, project, reflection, resources, time_spent, user_id)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """,
-            (date, title, content, tags, project, reflection, resources, time_spent, session['uid'])
-        )
+        """, (date, title, content, tags, project, reflection, resources, time_spent, session['uid']))
         mysql.connection.commit()
         cur.close()
 
-        flash('Learning entry added!', 'success')
+        flash("Learning entry added!", 'success')
         return redirect(url_for('dashboard'))
 
     return render_template('entry.html', entry=None)
-
-from MySQLdb.cursors import DictCursor
 
 @app.route('/view_entry/<int:id>')
 def view_entry(id):
     if 'uid' not in session:
         return redirect(url_for('login'))
 
-    cur = mysql.connection.cursor(DictCursor)
+    cur = mysql.connection.cursor()
     cur.execute(
         "SELECT * FROM learning_entries WHERE id = %s AND user_id = %s",
-        (id, session['uid'])  
+        (id, session['uid'])
     )
     entry = cur.fetchone()
     cur.close()
 
     if not entry:
-        flash('Entry not found.')
+        flash("Entry not found.", 'danger')
         return redirect(url_for('dashboard'))
-
-    print(entry) 
 
     return render_template('view_entry.html', entry=entry)
 
@@ -201,7 +205,7 @@ def view_entry(id):
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
     if 'username' not in session:
-        flash('Please login first.', 'warning')
+        flash("Please login first.", 'warning')
         return redirect(url_for('login'))
 
     cur = mysql.connection.cursor()
@@ -209,8 +213,8 @@ def update(id):
     if request.method == 'POST':
         errors = validate_entry_form(request.form)
         if errors:
-            for error, category in errors:
-                flash(error, category)
+            for error_msg, category in errors:
+                flash(error_msg, category)
             form_data = request.form.to_dict()
             form_data['id'] = id
             cur.close()
@@ -224,20 +228,18 @@ def update(id):
         reflection = request.form.get('reflection', '').strip()
         resources = request.form.get('resources', '').strip()
         time_spent_str = request.form.get('time', '').strip()
-        time_spent = int(time_spent_str) if time_spent_str.isdigit() else None
+        time_spent = float(time_spent_str) if time_spent_str else None
 
         cur.execute("""
             UPDATE learning_entries SET
             date = %s, title = %s, content = %s, tags = %s, project = %s,
             reflection = %s, resources = %s, time_spent = %s
             WHERE id = %s AND user_id = %s
-            """,
-            (date, title, content, tags, project, reflection, resources, time_spent, id, session['uid'])
-        )
+        """, (date, title, content, tags, project, reflection, resources, time_spent, id, session['uid']))
         mysql.connection.commit()
         cur.close()
 
-        flash('Entry updated!', 'success')
+        flash("Entry updated!", 'success')
         return redirect(url_for('dashboard'))
 
     cur.execute("SELECT * FROM learning_entries WHERE id = %s AND user_id = %s", (id, session['uid']))
@@ -245,7 +247,7 @@ def update(id):
     cur.close()
 
     if not entry: 
-        flash('Entry not found or you do not have permission to edit it.', 'danger')
+        flash("Entry not found or you don't have permission.", 'danger')
         return redirect(url_for('dashboard'))
 
     return render_template('entry.html', entry=entry)
@@ -254,7 +256,7 @@ def update(id):
 @app.route('/delete/<int:id>')
 def delete(id):
     if 'username' not in session:
-        flash('Please login first.', 'warning')
+        flash("Please login first.", 'warning')
         return redirect(url_for('login'))
 
     cur = mysql.connection.cursor()
@@ -262,7 +264,7 @@ def delete(id):
     mysql.connection.commit()
     cur.close()
 
-    flash('Entry deleted!', 'success')
+    flash("Entry deleted!", 'success')
     return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':

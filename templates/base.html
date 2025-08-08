@@ -8,33 +8,70 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <style>
-      /* Style for the fade-out transition */
-      .flash-alert {
-        transition: opacity 0.5s ease-in-out;
-      }
-      .flash-alert.fade-out {
-        opacity: 0;
-      }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {% block head_extra %}{% endblock %}
   </head>
   <body>
     <div>{% block content %}{% endblock %}</div>
-    {% block scripts %}
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const flashAlerts = document.querySelectorAll(".flash-alert");
-        flashAlerts.forEach(function (alert) {
-          // Set a timeout to start the fade-out after 5 seconds
-          setTimeout(function () {
-            alert.classList.add("fade-out");
-            // Remove the element from the DOM after the transition completes
-            alert.addEventListener("transitionend", () => alert.remove());
-          }, 4000); // 5000 milliseconds = 5 seconds
-        });
-      });
+
+    <script type="application/json" id="flash-data">
+      {{ get_flashed_messages(with_categories=true) | tojson | safe }}
     </script>
-    {% endblock %}
+
+    <script>
+      const flashDataEl = document.getElementById("flash-data");
+      const flashMessages = flashDataEl
+        ? JSON.parse(flashDataEl.textContent)
+        : [];
+
+      const iconMap = {
+        danger: "error",
+        warning: "warning",
+        success: "success",
+        info: "info",
+        message: "info",
+      };
+
+      if (Array.isArray(flashMessages)) {
+        flashMessages.forEach(([category, message]) => {
+          const iconType = iconMap[category] || "info";
+          Swal.fire({
+            toast: true,
+            position: "top-end",
+            icon: iconType,
+            title: message,
+            showConfirmButton: false,
+            timer: 3500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+        });
+      }
+    </script>
+
+    <script>
+      function confirmDelete(event, url) {
+        event.preventDefault();
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showConfirmButton: true,
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#6e7881",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = url;
+          }
+        });
+      }
+    </script>
+
+    {% block scripts %}{% endblock %}
   </body>
 </html>

@@ -57,6 +57,7 @@ body {
   margin-left: calc(0.75rem + 4px);
   padding-bottom: 1rem;
   border-bottom: 1px solid #eee;
+  white-space: pre-wrap; /* This will preserve line breaks */
 }
 
 .detail-item:last-child p {

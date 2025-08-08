@@ -4,19 +4,20 @@
   box-sizing: border-box;
 }
 
-body, html {
-  font-family: 'Poppins', sans-serif;
+body,
+html {
+  font-family: "Poppins", sans-serif;
   background: #f1f2f6;
 }
 
 .landing {
-  height: 300vh;
+  min-height: 100vh;
   width: 100vw;
   color: #fff;
   background: linear-gradient(135deg, #e73895, #8f3cf7, #2c2bff);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 20px 40px;
 }
 
@@ -152,9 +153,7 @@ nav a:hover {
     transform: translateY(-30px) scale(1.2);
   }
 }
-<!------------>
-
-.auth-box {
+<!------------ > .auth-box {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -170,13 +169,13 @@ nav a:hover {
   border-radius: 20px;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .auth-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .auth-btn {
@@ -189,7 +188,7 @@ nav a:hover {
   border-radius: 20px;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -212,15 +211,22 @@ nav a:hover {
 .auth-btn:hover {
   animation: gradientFlow 3s linear infinite;
   transform: scale(1.05);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.3);
-  background: linear-gradient(270deg, #ff6ec4, #7873f5,#e73895, #8f3cf7, #ff6ec4);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(
+    270deg,
+    #ff6ec4,
+    #7873f5,
+    #e73895,
+    #8f3cf7,
+    #ff6ec4
+  );
   background-size: 400% 400%;
 }
 
 <!--------->
 /* Section Wrapper Styles */
 
-.sections{
+.sections {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -270,7 +276,7 @@ nav a:hover {
   background: #fff;
   border-left: 4px solid #673ab7;
   padding: 16px 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   font-weight: 500;
   border-radius: 8px;
 }
@@ -302,7 +308,7 @@ html {
 }
 
 .section::before {
-  content: '';
+  content: "";
   display: block;
   width: 60px;
   height: 4px;

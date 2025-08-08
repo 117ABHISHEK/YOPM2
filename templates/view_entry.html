@@ -28,7 +28,8 @@
       <div class="detail-item">
         <h5>Tags</h5>
         <div class="tags-container">
-          {% if entry.tags %} {% for tag in entry.tags.split(',') %}
+          {% if entry.tags %} {% for tag in entry.tags.split(',') if tag.strip()
+          %}
           <span class="tag">{{ tag.strip() }}</span>
           {% endfor %} {% else %}
           <p>None</p>
@@ -73,7 +74,7 @@
         <a
           href="{{ url_for('delete', id=entry['id']) }}"
           class="btn btn-danger"
-          onclick="return confirm('Are you sure you want to delete this entry?');"
+          onclick="confirmDelete(event, this.href)"
         >
           🗑️ Delete
         </a>
